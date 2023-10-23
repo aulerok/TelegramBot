@@ -9,6 +9,7 @@ from aiogram.filters import Command
 from aiogram import types
 from aiogram import F
 from aiogram.utils.markdown import hbold
+from keyboards import *
 
 # Инициализация бота и диспетчера
 bot = Bot(token=TELEGRAM_BOT_TOKEN, parse_mode="HTML")
@@ -21,6 +22,7 @@ openai.api_key = OPENAI_API_KEY
 @dp.message(F.new_chat_members)
 async def somebody_added(message: types.Message):
     for user in message.new_chat_members:
+
         # проперти full_name берёт сразу имя И фамилию
         # (на скриншоте выше у юзеров нет фамилии)
         await message.reply(
@@ -39,7 +41,7 @@ async def on_start(message: types.Message) -> None:
         f" \n Я бот консультант этого чата."
         f"\n Я могу ответить на наиболее частые ваши вопросы.\n Просто обратитесь ко мне "
         f"упоминув мое имя @curlszabot_bot и делее Ваше сообщение \n Я постараюсь очень оперативно ответить вам."
-        f"\n Наиболее частые вопросы вы можете увидеть под моим сообщением в кнопки МЕНЮ")
+        f"\n Наиболее частые вопросы вы можете увидеть под моим сообщением в кнопки МЕНЮ", reply_markup=keyboard)
 
 
 # Обработчик всех текстовых сообщений
@@ -60,23 +62,6 @@ async def on_message(message: types.Message):
     else:
         # Если бот не упомянут, не отвечаем
         pass
-
-# Сообщение по команде /menu с кнопками
-@dp.message(Command("menu"))
-async def cmd_menu(message: types.Message):
-    kb = [
-        [
-            types.KeyboardButton(text="продлить доступ к курсу"),
-            types.KeyboardButton(text="Востановить доступ к курсу"),
-            types.KeyboardButton(text="Востановить доступ к курсу")
-        ],
-    ]
-    keyboard = types.ReplyKeyboardMarkup(
-        keyboard=kb,
-        resize_keyboard=True,
-        input_field_placeholder="текст1"
-    )
-    await message.answer("текст2", reply_markup=keyboard)
 
 async def main() -> None:
     # Initialize Bot instance with a default parse mode which will be passed to all API calls

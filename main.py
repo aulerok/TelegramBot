@@ -9,7 +9,6 @@ from aiogram.filters import Command
 from aiogram import types
 from aiogram import F
 from aiogram.utils.markdown import hbold
-from keyboards import *
 
 # Инициализация бота и диспетчера
 bot = Bot(token=TELEGRAM_BOT_TOKEN, parse_mode="HTML")
@@ -41,7 +40,7 @@ async def on_start(message: types.Message) -> None:
         f" \n Я бот консультант этого чата."
         f"\n Я могу ответить на наиболее частые ваши вопросы.\n Просто обратитесь ко мне "
         f"упоминув мое имя @curlszabot_bot и делее Ваше сообщение \n Я постараюсь очень оперативно ответить вам."
-        f"\n Наиболее частые вопросы вы можете увидеть под моим сообщением в кнопки МЕНЮ", reply_markup=keyboard)
+        f"\n Наиболее частые вопросы вы можете увидеть под моим сообщением в кнопки МЕНЮ")
 
 
 # Обработчик всех текстовых сообщений
